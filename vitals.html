@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Daily Patient Tracker</h2>
+  <form id="trackerForm">
+    <label>Date : <input type="date" id ="dt" /></label>
+    <fieldset>
+      <legend>Vitals Morning (8.00 am)</legend>
+      <label>Temperature : <input type="text" id="morning_temp" step="0.1" min="90" max="110" placeholder="98.5" /></label>
+      <label>BP : <input type="text" id="morning_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80"/></label>
+      <label>Pulse Rate : <input type="text" id="morning_pr" min="0" max="200" placeholder=" 90" /></label>
+      <label>SpO2 : <input type="text" id="morning_spo2" /></label>
+    </fieldset>
+    <fieldset>
+      <legend>Vitals Morning (8.00 pm)</legend>
+      <label>Temperature : <input type="text" id="evening_temp" step="0.1" min="90" max="110"/></label>
+      <label>BP : <input type="text" id="evening_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80"np /></label>
+      <label>Pulse Rate : <input type="text" id="evening_pr" min="0" max="200" placeholder=" 90"/></label>
+      <label>SpO2 : <input type="text" id="evening_spo2" /></label>
+    </fieldset>
+    <fieldset>
+      <legend>Capping Details</legend>
+      <label>Start Time : <input type="time" id="capping_start" /></label>
+      <label>PR @ Start Time : <input type="text" id="cap_start_pr" /></label>
+      <label>SpO2 @ Start Time: <input type="text" id="cap_start_spo2" /></label>
+      <label>End Time : <input type="time" id="capping_end" /></label>
+      <label>PR @ End Time : <input type="text" id="cap_end_pr" /></label>
+      <label>SpO2 @ End Time: <input type="text" id="cap_end_spo2" /></label>
+    </fieldset>
+    
+    <fieldset>
+      <legend>Total Intake/Output Quantity</legend>
+      <label> Input : <input type ="number" id ="inputQty" /></label>
+      <label> Output : <input type ="number" id ="outputQty" /></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Miscelleanous</legend>
+      <label> Motion Passed : <input type ="number" id ="motionPassed" /></label>
+      <label> Trachea Secretions : <input type ="number" id ="tSecretions" /></label>
+      <label> Oral Suctions : <input type="number" id="oral_suctions"/> </label>
+      <label> RBS : <input type="number" id="rbs"/> </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Notes</legend>
+      <label> Physio Therapy: <textarea id="physio_notes" rows="4" cols="50"></textarea> </label>
+      <label> Swallow Therapy : <textarea id="swallow_notes" rows="4" cols="50"></textarea> </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Medications</legend>
+      <div id="medicationsList"></div>
+      <label> Medicine Name :<input type="text" class="medName" /> </label>
+      <label> Dose :<input type="text" class="medDose" /></label>
+      <label>Time : <input type="text" class="medTime" /></label>
+      <button type="button" onclick="addMedication()">+ Add Medication</button>
+    </fieldset>
+
+    <div class="buttons">
+      <button type="button" id ="saveBtn" onclick="saveVitalsData()">Save</button>
+      <button type="button" id ="sendWhatsAppBtn" onclick="sendWhatsApp()">Send WhatsApp</button>
+      <button type="button" id ="exportBtn" onclick="exportToExcel()">Export to Excel</button>
+    </div>
+  </form>
+
+  <script src="app.js"></script>
+</body>
+</html>

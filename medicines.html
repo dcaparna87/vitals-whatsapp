@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medicine List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Medicine List Tracker</h2>
+
+  <form id="medForm">
+    <label>Revision Date:
+      <input type="date" id="revisionDate" required />
+    </label>
+
+    <fieldset>
+      <legend>Regular / Neuro</legend>
+      <div id="neuroList"></div>
+      <input type="text" class="neuroMed" placeholder="e.g. Levipil 500mg" />
+      <input type="text" class="neuroDose" placeholder="e.g. 1 time" />
+      <button type="button" onclick="addMed('neuro')">+ Add</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Cardio Related</legend>
+      <div id="cardioList"></div>
+      <input type="text" class="cardioMed" placeholder="e.g. Storvas (10 mg)" />
+      <input type="text" class="cardioDose" placeholder="e.g. 1 time" />
+      <button type="button" onclick="addMed('cardio')">+ Add</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>For Constipation</legend>
+      <div id="constipationList"></div>
+      <input type="text" class="constipationMed" placeholder="e.g. Duphlac (15ml)" />
+      <input type="text" class="constipationDose" placeholder="e.g. 1 time (Night)" />
+      <button type="button" onclick="addMed('constipation')">+ Add</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Nebulizers</legend>
+      <div id="nebList"></div>
+      <input type="text" class="nebMed" placeholder="e.g. Duolin (Neb)" />
+      <input type="text" class="nebDose" placeholder="e.g. 2 Times or SOS" />
+      <button type="button" onclick="addMed('neb')">+ Add</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>SOS</legend>
+      <div id="sosList"></div>
+      <input type="text" class="sosMed" placeholder="e.g. Calpol 650" />
+      <input type="text" class="sosDose" placeholder="e.g. SOS or 1 Time (Night)" />
+      <button type="button" onclick="addMed('sos')">+ Add</button>
+    </fieldset>
+
+    <button type="button" onclick="generateMedSummary()">Generate Summary</button>
+  </form>
+
+  <div id="medSummary" style="white-space: pre-wrap; margin-top: 1em; background: #f9f9f9; padding: 1em; border: 1px solid #ccc;"></div>
+
+  <script>
+    const meds = {
+      neuro: [],
+      cardio: [],
+      constipation: [],
+      neb: [],
+      sos: []
+    };
+
+    function addMed(type) {
+      const name = document.querySelector(`.${type}Med`).value.trim();
+      const dose = document.querySelector(`.${type}Dose`).value.trim();
+      if (name) {
+        meds[type].push(`${name}${dose ? ' - ' + dose : ''}`);
+        updateMedList(type);
+        document.querySelector(`.${type}Med`).value = '';
+        document.querySelector(`.${type}Dose`).value = '';
+      }
+    }
+
+    function updateMedList(type) {
+      const container = document.getElementById(`${type}List`);
+      container.innerHTML = '';
+      meds[type].forEach((med, i) => {
+        const item = document.createElement('div');
+        item.textContent = `${i + 1}. ${med}`;
+        container.appendChild(item);
+      });
+    }
+
+    function generateMedSummary() {
+      const date = document.getElementById('revisionDate').value;
+      if (!date) {
+        alert('Please enter the revision date.');
+        return;
+      }
+      const formattedDate = new Date(date).toLocaleDateString('en-GB');
+      let summary = `Medicines revised as on ${formattedDate}\n\n`;
+
+      const sections = {
+        neuro: 'Regular / Neuro',
+        cardio: 'Cardio Related',
+        constipation: 'For Constipation',
+        neb: 'Nebulizers',
+        sos: 'SOS'
+      };
+
+      for (const type in meds) {
+        if (meds[type].length > 0) {
+          summary += `${sections[type]}:\n`;
+          meds[type].forEach((m, i) => {
+            summary += `${i + 1}. ${m}\n`;
+          });
+          summary += '\n';
+        }
+      }
+
+      document.getElementById('medSummary').textContent = summary;
+    }
+  </script>
+</body>
+</html>

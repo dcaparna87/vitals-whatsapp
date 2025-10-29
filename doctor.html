@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor Visit Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Doctor Visit Tracker</h2>
+
+  <form id="doctorForm">
+    <label>Date of Visit:
+      <input type="date" id="visitDate" required />
+    </label>
+
+    <label>Diagnosis / Notes:
+      <textarea id="diagnosis" rows="4" placeholder="e.g. Constipation and fever (99)..."></textarea>
+    </label>
+
+    <fieldset>
+      <legend>Medicines Advised</legend>
+      <div id="medList"></div>
+
+      <label>Medicine Name:
+        <input type="text" class="medName" placeholder="e.g. Tab Baclofen 10 mg" />
+      </label>
+      <label>Dosage / Instructions:
+        <input type="text" class="medDose" placeholder="e.g. @ 9pm daily" />
+      </label>
+      <button type="button" onclick="addMedicine()">+ Add Medicine</button>
+    </fieldset>
+
+    <label>Doctor Name & Visit Type:
+      <input type="text" id="doctorName" placeholder="e.g. Dr. SaiKrishna (Home Visit)" />
+    </label>
+
+    <button type="button" onclick="generateSummary()">Generate Summary</button>
+  </form>
+
+  <div id="summaryOutput" style="white-space: pre-wrap; margin-top: 1em; background: #f9f9f9; padding: 1em; border: 1px solid #ccc;"></div>
+
+  <script>
+    const medList = [];
+
+    function addMedicine() {
+      const name = document.querySelector('.medName').value.trim();
+      const dose = document.querySelector('.medDose').value.trim();
+      if (name) {
+        medList.push(`${name}${dose ? ' - ' + dose : ''}`);
+        updateMedList();
+        document.querySelector('.medName').value = '';
+        document.querySelector('.medDose').value = '';
+      }
+    }
+
+    function updateMedList() {
+      const container = document.getElementById('medList');
+      container.innerHTML = '';
+      medList.forEach((med, i) => {
+        const item = document.createElement('div');
+        item.textContent = `${i + 1}. ${med}`;
+        container.appendChild(item);
+      });
+    }
+
+    function generateSummary() {
+      const date = document.getElementById('visitDate').value;
+      const diagnosis = document.getElementById('diagnosis').value.trim();
+      const doctor = document.getElementById('doctorName').value.trim();
+
+      if (!date || !diagnosis || !doctor || medList.length === 0) {
+        alert('Please fill in all fields and add at least one medicine.');
+        return;
+      }
+
+      const formattedDate = new Date(date).toLocaleDateString('en-GB');
+      const summary = `Date - ${formattedDate}\n\nDiagnosis - ${diagnosis}\n\nMedicines advised -\n\n${medList.map(m => '- ' + m).join('\n')}\n\nDoctor - ${doctor}`;
+
+      document.getElementById('summaryOutput').textContent = summary;
+    }
+  </script>
+</body>
+</html>

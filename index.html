@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Tracker Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Patient Tracker Dashboard</h1>
+  <nav>
+    <button onclick="loadPage('vitals.html')">Vitals Tracker</button>
+    <button onclick="loadPage('doctor.html')">Doctor Visits</button>
+    <button onclick="loadPage('medicines.html')">Medicine List</button>
+  </nav>
+
+  <iframe id="contentFrame" src="vitals.html" frameborder="0"></iframe>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+fieldset {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+legend {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  margin-top:10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 400;
+  margin-top:10px;
+}
+
+
+textarea {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top:6px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+.row { display:flex; gap:10px; }
+
+.row > div { flex:1; }
+
+.btn-row { display:flex; gap:10px; margin-top:12px; }
+
+button { cursor:pointer; }
+
+#saveBtn { background:#25D366; color:white; border:none; font-weight:700; }
+
+#exportBtn { background:#3b82f6; color:white; border:none; font-weight:700; }
+
+#sendWhatsAppBtn {background:#993bf6; color:white; border:none; font-weight:700;}
+
+.muted { font-size:13px; color:#666; margin-top:6px; }
+
+hr { margin: 18px 0; border: none; border-top: 1px solid #eee; }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  background-color: #007bff;
+  color: white;
+  padding: 1em;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  background-color: #f0f0f0;
+  padding: 0.5em;
+}
+
+nav button {
+  flex: 1;
+  padding: 1em;
+  margin: 0 0.5em;
+  cursor: pointer;
+  background-color: #e0e0e0;
+  border: none;
+  font-weight: bold;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100vh - 140px);
+  border: none;
+}

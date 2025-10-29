@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Vitals → WhatsApp + Sheet + Export</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 14px; max-width: 820px; margin: auto; }
+    h2 { text-align: center; margin-bottom:6px; }
+    label { font-weight: 600; display:block; margin-top:10px; }
+    input, textarea, select, button {
+      width: 100%; padding: 10px; margin-top:6px; box-sizing: border-box;
+      border-radius: 8px; border: 1px solid #ccc; font-size: 15px;
+    }
+    .row { display:flex; gap:10px; }
+    .row > div { flex:1; }
+    .btn-row { display:flex; gap:10px; margin-top:12px; }
+    button { cursor:pointer; }
+    #submitBtn { background:#25D366; color:white; border:none; font-weight:700; }
+    #exportBtn { background:#3b82f6; color:white; border:none; font-weight:700; }
+    .muted { font-size:13px; color:#666; margin-top:6px; }
+    hr { margin: 18px 0; border: none; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+  <h2>Vitals Entry — Send & Save</h2>
+
+  <label>Date</label>
+  <input type="date" id="date">
+
+  <div class="row">
+    <div>
+      <label>8:00am Time</label>
+      <input type="time" id="morning_time" value="08:00">
+    </div>
+    <div>
+      <label>8:00am BP</label>
+      <input id="morning_bp" placeholder="e.g., 120/80 mmHg">
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <label>8:00am Pulse (PR)</label>
+      <input id="morning_pr" placeholder="e.g., 80 b/m">
+    </div>
+    <div>
+      <label>8:00am SpO₂ (%)</label>
+      <input id="morning_spo2" placeholder="e.g., 98%">
+    </div>
+  </div>
+
+  <label>8:00am Temp</label>
+  <input id="morning_temp" placeholder="e.g., 98.4°F">
+
+  <hr>
+
+  <div class="row">
+    <div>
+      <label>8:00pm Time</label>
+      <input type="time" id="evening_time" value="20:00">
+    </div>
+    <div>
+      <label>8:00pm BP</label>
+      <input id="evening_bp" placeholder="e.g., 120/75 mmHg">
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <label>8:00pm Pulse (PR)</label>
+      <input id="evening_pr" placeholder="e.g., 73 b/m">
+    </div>
+    <div>
+      <label>8:00pm SpO₂ (%)</label>
+      <input id="evening_spo2" placeholder="e.g., 100%">
+    </div>
+  </div>
+
+  <label>8:00pm Temp</label>
+  <input id="evening_temp" placeholder="e.g., 97.1°F">
+
+  <hr>
+
+  <label>Capping Start Time</label>
+  <input type="time" id="capping_start">
+
+  <div class="row">
+    <div>
+      <label>Pulse (start)</label>
+      <input id="cap_start_pr" placeholder="e.g., 86 b/m">
+    </div>
+    <div>
+      <label>SpO₂ (start)</label>
+      <input id="cap_start_spo2" placeholder="e.g., 98%">
+    </div>
+  </div>
+
+  <label>Capping End Time</label>
+  <input type="time" id="capping_end">
+
+  <div class="row">
+    <div>
+      <label>Pulse (end)</label>
+      <input id="cap_end_pr" placeholder="e.g., 88 b/m">
+    </div>
+    <div>
+      <label>SpO₂ (end)</label>
+      <input id="cap_end_spo2" placeholder="e.g., 99%">
+    </div>
+  </div>
+
+  <hr>
+
+  <label>No. of Oral Suctions</label>
+  <input id="oral_suctions" placeholder="e.g., 3">
+
+  <label>Tracheal Suctions / Secretions (count)</label>
+  <input id="trach_suctions" placeholder="e.g., 4-5">
+
+  <label>Physio Therapy Notes</label>
+  <textarea id="physio_notes" rows="3" placeholder="Active / Passive, tremors, cooperation, etc."></textarea>
+
+  <label>Swallow Therapy / Feeding Notes</label>
+  <textarea id="swallow_notes" rows="3" placeholder="e.g., 100-150 ml, method (syringe), plan"></textarea>
+
+  <label>Feed Qty & Frequency</label>
+  <input id="feed_details" placeholder="e.g., 150 ml per feed; 3 powder feeds; 6 home feeds">
+
+  <label>Passed Motion (count)</label>
+  <input id="passed_motion" placeholder="e.g., 4-5 times">
+
+  <label>Medications Given (short list)</label>
+  <textarea id="meds" rows="3" placeholder="e.g., Levipil 500/750, Zincovit, Apixaban, ..."></textarea>
+
+  <p class="muted">Message will be sent to the fixed WhatsApp number and saved to the connected Google Sheet. Export button downloads CSV which opens in Excel.</p>
+
+  <div class="btn-row">
+    <button id="submitBtn">Submit & Send WhatsApp</button>
+    <button id="exportBtn">Export to Excel (CSV)</button>
+  </div>
+
+  <script>
+    // -------------------------
+    // CONFIG: Replace these
+    // -------------------------
+    const WEB_APP_URL = "WEB_APP_URL_GOES_HERE"; // <--- Replace with your Apps Script web app URL
+    const PHONE_NUMBER = "91xxxxxxxx"; // <--- Replace with real number (e.g., 919812345678)
+    // -------------------------
+
+    function getValue(id) { return (document.getElementById(id).value || "").toString().trim(); }
+
+    function buildMessage(data) {
+      // Option A: Detailed formatted message (your sample style)
+      return [
+        `Date: ${data.date || ""}`,
+        ``,
+        `${data.morning_time ? data.morning_time + " Vitals Chart:" : "8am Vitals Chart:"}`,
+        `BP: ${data.morning_bp || ""}`,
+        `Pulse: ${data.morning_pr || ""}`,
+        `SpO2: ${data.morning_spo2 || ""}`,
+        `Temp: ${data.morning_temp || ""}`,
+        ``,
+        `${data.evening_time ? data.evening_time + " Vitals Chart:" : "8pm Vitals Chart:"}`,
+        `BP: ${data.evening_bp || ""}`,
+        `Pulse: ${data.evening_pr || ""}`,
+        `SpO2: ${data.evening_spo2 || ""}`,
+        `Temp: ${data.evening_temp || ""}`,
+        ``,
+        `Capping:`,
+        `Start Time: ${data.capping_start || ""}`,
+        `Pulse: ${data.cap_start_pr || ""}`,
+        `SpO2: ${data.cap_start_spo2 || ""}`,
+        ``,
+        `End Time: ${data.capping_end || ""}`,
+        `Pulse: ${data.cap_end_pr || ""}`,
+        `SpO2: ${data.cap_end_spo2 || ""}`,
+        ``,
+        `Notes:`,
+        `1. Suction/Secretions (Trachea): ${data.trach_suctions || ""}`,
+        `2. Physio Therapy: ${data.physio_notes || ""}`,
+        `3. Swallow Therapy: ${data.swallow_notes || ""}`,
+        `4. Passed Motion: ${data.passed_motion || ""}`,
+        `5. Oral Suctions: ${data.oral_suctions || ""}`,
+        `6. Feed Qty & Frequency: ${data.feed_details || ""}`,
+        `7. Medications: ${data.meds || ""}`
+      ].join("\n");
+    }
+
+    async function submitData() {
+      const data = {
+        date: getValue('date'),
+        morning_time: getValue('morning_time'),
+        morning_bp: getValue('morning_bp'),
+        morning_pr: getValue('morning_pr'),
+        morning_spo2: getValue('morning_spo2'),
+        morning_temp: getValue('morning_temp'),
+        evening_time: getValue('evening_time'),
+        evening_bp: getValue('evening_bp'),
+        evening_pr: getValue('evening_pr'),
+        evening_spo2: getValue('evening_spo2'),
+        evening_temp: getValue('evening_temp'),
+        capping_start: getValue('capping_start'),
+        cap_start_pr: getValue('cap_start_pr'),
+        cap_start_spo2: getValue('cap_start_spo2'),
+        capping_end: getValue('capping_end'),
+        cap_end_pr: getValue('cap_end_pr'),
+        cap_end_spo2: getValue('cap_end_spo2'),
+        oral_suctions: getValue('oral_suctions'),
+        trach_suctions: getValue('trach_suctions'),
+        physio_notes: getValue('physio_notes'),
+        swallow_notes: getValue('swallow_notes'),
+        feed_details: getValue('feed_details'),
+        passed_motion: getValue('passed_motion'),
+        meds: getValue('meds'),
+        client_timestamp: new Date().toISOString()
+      };
+
+      // Build WhatsApp message
+      const message = buildMessage(data);
+
+      // 1) Save to Google Sheet via Apps Script
+      try {
+        if (!WEB_APP_URL || WEB_APP_URL === "WEB_APP_URL_GOES_HERE") {
+          alert("Replace WEB_APP_URL in the HTML with your deployed Apps Script URL.");
+          return;
+        }
+        const res = await fetch(WEB_APP_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        // Attempt to read result (not required)
+        if (!res.ok) {
+          console.warn("Sheet save returned non-OK:", res.status);
+          // continue anyway
+        }
+      } catch (err) {
+        console.error("Error saving to sheet:", err);
+        // continue to open WhatsApp even if save failed
+      }
+
+      // 2) Open WhatsApp with prefilled message (fixed number)
+      if (!PHONE_NUMBER || PHONE_NUMBER === "91xxxxxxxx") {
+        alert("Replace PHONE_NUMBER in the HTML with the recipient number first.");
+        return;
+      }
+
+      const waUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    // Export: open the Apps Script URL with action=export to download CSV
+    function exportCsv() {
+      if (!WEB_APP_URL || WEB_APP_URL === "WEB_APP_URL_GOES_HERE") {
+        alert("Replace WEB_APP_URL in the HTML with your deployed Apps Script URL.");
+        return;
+      }
+      // open in new tab to trigger download (Apps Script will return CSV blob)
+      window.open(WEB_APP_URL + "?action=export", "_blank");
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      submitData();
+    });
+    document.getElementById('exportBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      exportCsv();
+    });
+
+    // Set default date to today
+    (function() {
+      const d = new Date();
+      const iso = d.toISOString().slice(0,10);
+      if (!document.getElementById('date').value) document.getElementById('date').value = iso;
+    })();
+  </script>
+</body>
+</html>
