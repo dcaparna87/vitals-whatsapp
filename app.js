@@ -193,7 +193,7 @@ Notes :-
 `;
 
   const phoneNumber = "919176580847"; // Replace with actual number
-  window.open(`https://wa.me/${phoneNumberJSA}?text=${encodeURIComponent(message)}`);
+  window.open(`https://wa.me/${phoneNumberCSA}?text=${encodeURIComponent(message)}`);
 }
 
 function exportToExcel() {
