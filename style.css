@@ -53,12 +53,6 @@ input, textarea, select {
 
 button { cursor:pointer; }
 
-#saveBtn { background:#25D366; color:white; border:none; font-weight:700; }
-
-#exportBtn { background:#3b82f6; color:white; border:none; font-weight:700; }
-
-#sendWhatsAppBtn {background:#993bf6; color:white; border:none; font-weight:700;}
-
 .muted { font-size:13px; color:#666; margin-top:6px; }
 
 hr { margin: 18px 0; border: none; border-top: 1px solid #eee; }
