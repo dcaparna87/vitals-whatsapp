@@ -269,18 +269,17 @@ function sendWhatsApp() {
   message += `Evening Vitals (8:00 PM):\n`;
   message += `Temp: ${eveningTemp}°f, \n BP: ${eveningBP} mm Hg, \n PR: ${eveningPR} bpm, \n SpO2: ${eveningSpO2}%\n\n`;
 
-  message += `Capping Start Time: ${capStart} \n PR: ${capStartPR} bpm, \n SpO2: ${capStartSpO2}%\n`;
+  message += `Capping Start Time: ${capStart} \n PR: ${capStartPR} bpm, \n SpO2: ${capStartSpO2}%\n\n`;
   message += `Capping End Time : ${capEnd} \n PR: ${capEndPR} bpm, \n SpO2: ${capEndSpO2}%\n\n`;
 
-  message += `Intake/Output:\n Input: ${inputQty} ml, \n Output: ${outputQty} ml\n\n`;
+  message += `Notes : \n1. Input: ${inputQty} ml, Output: ${outputQty} ml`;
+  message += `\n2. Motion Passed: ${motionPassed}, \n3. Trachea Secretion: ${tSecretions}, \n4. Oral Suction: ${oralSuction}, \n5.RBS: ${rbs}`;
 
-  message += `Misc:\n Motion: ${motionPassed}, \n Trachea Secretion: ${tSecretions}, \n Oral Suction: ${oralSuction}, \n RBS: ${rbs}\n\n`;
-
-  message += `Physio Therapy:\n${physioNotes}\n\n`;
-  message += `Swallow Therapy:\n${swallowNotes}\n\n`;
+  message += `\n6. Physio Therapy:\n${physioNotes}\n`;
+  message += `\n7. Swallow Therapy:\n${swallowNotes}`;
 
   if (meds.length > 0) {
-    message += `Medications Given:\n`;
+    message += `\n8. Medications Given:\n`;
     meds.forEach((med, i) => {
       message += `${i + 1}. ${med}\n`;
     });
