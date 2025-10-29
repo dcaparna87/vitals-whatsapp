@@ -272,14 +272,14 @@ function sendWhatsApp() {
   message += `Capping Start Time: ${capStart} \n PR: ${capStartPR} bpm, \n SpO2: ${capStartSpO2}%\n\n`;
   message += `Capping End Time : ${capEnd} \n PR: ${capEndPR} bpm, \n SpO2: ${capEndSpO2}%\n\n`;
 
-  message += `Notes : \n1. Input: ${inputQty} ml, Output: ${outputQty} ml`;
+  message += `*Notes* : \n1. Input: ${inputQty} ml, Output: ${outputQty} ml`;
   message += `\n2. Motion Passed: ${motionPassed}, \n3. Trachea Secretion: ${tSecretions}, \n4. Oral Suction: ${oralSuction}, \n5.RBS: ${rbs}`;
 
   message += `\n6. Physio Therapy:\n${physioNotes}\n`;
-  message += `\n7. Swallow Therapy:\n${swallowNotes}`;
+  message += `\n7. Swallow Therapy:\n${swallowNotes}\n`;
 
   if (meds.length > 0) {
-    message += `\n8. Medications Given:\n`;
+    message += `\n *Medications Given:*\n`;
     meds.forEach((med, i) => {
       message += `${i + 1}. ${med}\n`;
     });
