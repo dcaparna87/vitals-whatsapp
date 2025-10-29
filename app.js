@@ -1,7 +1,25 @@
 let savedData = [];
-
+//Validate BP
 document.getElementById("morning_bp").addEventListener("blur", validateBPWrapper);
 document.getElementById("evening_bp").addEventListener("blur", validateBPWrapper);
+
+//Validate Temp
+//document.getElementById("morning_temp").addEventListener("blur", validateBPWrapper);
+//document.getElementById("evening_temp").addEventListener("blur", validateBPWrapper);
+
+//Validate PR
+//document.getElementById("morning_pr").addEventListener("blur", validateBPWrapper);
+//document.getElementById("evening_pr").addEventListener("blur", validateBPWrapper);
+//document.getElementById("cap_start_pr").addEventListener("blur", validateBPWrapper);
+//document.getElementById("cap_end_pr").addEventListener("blur", validateBPWrapper);
+
+
+//Validate SpO2
+//document.getElementById("morning_spo2").addEventListener("blur", validateBPWrapper);
+//document.getElementById("evening_spo2").addEventListener("blur", validateBPWrapper);
+//document.getElementById("cap_start_spo2").addEventListener("blur", validateBPWrapper);
+//document.getElementById("cap_end_spo2").addEventListener("blur", validateBPWrapper);
+
 
 function loadPage(page) {
   document.getElementById('contentFrame').src = page;
@@ -119,7 +137,7 @@ function sendWhatsApptemp() {
 
 }
 
-function sendWhatsApp(){
+/* function sendWhatsApp(){
 
   const phoneNumberCSA = "919176580847"; // Replace with actual number
   const phoneNumberJSA ="917995470462";
@@ -195,11 +213,96 @@ Notes :-
   const phoneNumber = "919176580847"; // Replace with actual number
   window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`);
 }
+*/
+
+function sendWhatsApp() {
+  // Collect vitals
+  const date = document.getElementById("dt").value;
+  const morningTemp = document.getElementById("morning_temp").value;
+  const morningBP = document.getElementById("morning_bp").value;
+  const morningPR = document.getElementById("morning_pr").value;
+  const morningSpO2 = document.getElementById("morning_spo2").value;
+
+  const eveningTemp = document.getElementById("evening_temp").value;
+  const eveningBP = document.getElementById("evening_bp").value;
+  const eveningPR = document.getElementById("evening_pr").value;
+  const eveningSpO2 = document.getElementById("evening_spo2").value;
+
+  const capStart = document.getElementById("capping_start").value;
+  const capStartPR = document.getElementById("cap_start_pr").value;
+  const capStartSpO2 = document.getElementById("cap_start_spo2").value;
+  const capEnd = document.getElementById("capping_end").value;
+  const capEndPR = document.getElementById("cap_end_pr").value;
+  const capEndSpO2 = document.getElementById("cap_end_spo2").value;
+
+  const inputQty = document.getElementById("inputQty").value;
+  const outputQty = document.getElementById("outputQty").value;
+
+  const motionPassed = document.getElementById("motionPassed").value;
+  const tSecretions = document.getElementById("tSecretions").value;
+  const oralSuction = document.getElementById("oral_suctions").value;
+  const rbs = document.getElementById("rbs").value;
+
+  const physioNotes = document.getElementById("physio_notes").value;
+  const swallowNotes = document.getElementById("swallow_notes").value;
+
+  // Collect checked medications
+  const meds = Array.from(document.querySelectorAll('input[name="meds"]:checked'))
+                    .map(cb => cb.value);
+
+
+  //Validate the Form 
+
+  const form = document.getElementById("trackerForm");
+
+  if (!form.checkValidity()) {
+    alert("Please fill all required fields correctly before sending.");
+    form.reportValidity(); // highlights the missing fields
+    return;
+  }
+  // Build WhatsApp message
+  let message = `_Date: ${date}_\n\n`;
+
+  message += `Morning Vitals (8:00 AM):\n`;
+  message += `Temp: ${morningTemp}°f, \n BP: ${morningBP} mm Hg, \n PR: ${morningPR} bpm, \n SpO2: ${morningSpO2}%\n\n`;
+
+  message += `Evening Vitals (8:00 PM):\n`;
+  message += `Temp: ${eveningTemp}°f, \n BP: ${eveningBP} mm Hg, \n PR: ${eveningPR} bpm, \n SpO2: ${eveningSpO2}%\n\n`;
+
+  message += `Capping Start Time: ${capStart} \n PR: ${capStartPR} bpm, \n SpO2: ${capStartSpO2}%\n`;
+  message += `Capping End Time : ${capEnd} \n PR: ${capEndPR} bpm, \n SpO2: ${capEndSpO2}%\n\n`;
+
+  message += `Intake/Output:\n Input: ${inputQty} ml, \n Output: ${outputQty} ml\n\n`;
+
+  message += `Misc:\n Motion: ${motionPassed}, \n Trachea Secretion: ${tSecretions}, \n Oral Suction: ${oralSuction}, \n RBS: ${rbs}\n\n`;
+
+  message += `Physio Therapy:\n${physioNotes}\n\n`;
+  message += `Swallow Therapy:\n${swallowNotes}\n\n`;
+
+  if (meds.length > 0) {
+    message += `Medications Given:\n`;
+    meds.forEach((med, i) => {
+      message += `${i + 1}. ${med}\n`;
+    });
+    message += `\n`;
+  }
+
+  // Encode and launch WhatsApp
+  const encoded = encodeURIComponent(message);
+  //window.open(`https://wa.me/?text=${encoded}`, "_blank");
+
+  
+  const phoneNumber = "919176580847"; // Replace with actual number
+  window.open(`https://wa.me/${phoneNumber}?text=${encoded}`);
+}
+
 
 function exportToExcel() {
   alert("Excel export coming soon!");
 }
 
+
+//BP Validation Function
 function validateBP(inputField) {
   const bpValue = inputField.value.trim();
   const pattern = /^\d{2,3}\/\d{2,3}$/;
@@ -219,3 +322,22 @@ function validateBPWrapper(event) {
   validateBP(event.target);
 }
 
+//PR Validation Function
+function validatePR(inputField) {
+  const prValue = inputField.value.trim();
+  const pattern = /^\d{2,3}\/\d{2,3}$/;
+
+  if (!pattern.test(prValue)) {
+    inputField.removeEventListener("blur", validatePRWrapper); // Temporarily disable blur
+    inputField.value = "";
+    alert("Please enter PR in format 120/80");
+    inputField.focus();
+    setTimeout(() => {
+      inputField.addEventListener("blur", validatePRWrapper); // Re-enable blur after focus
+    }, 500);
+  }
+}
+
+function validatePRWrapper(event) {
+  validatePR(event.target);
+}

@@ -9,59 +9,80 @@
 <body>
   <h2>Daily Patient Tracker</h2>
   <form id="trackerForm">
-    <label>Date : <input type="date" id ="dt" /></label>
+    <label>Date : <input type="date" id ="dt" required/></label>
     <fieldset>
       <legend>Vitals Morning (8.00 am)</legend>
-      <label>Temperature : <input type="text" id="morning_temp" step="0.1" min="90" max="110" placeholder="98.5" /></label>
-      <label>BP : <input type="text" id="morning_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80"/></label>
-      <label>Pulse Rate : <input type="text" id="morning_pr" min="0" max="200" placeholder=" 90" /></label>
-      <label>SpO2 : <input type="text" id="morning_spo2" /></label>
+      <label>Temperature : <input required type="number" id="morning_temp" step="0.1" min="90" max="110" placeholder="98.5" /></label>
+      <label>BP : <input required type="text" id="morning_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80"/></label>
+      <label>Pulse Rate : <input required type="number" id="morning_pr" min="0" max="200" placeholder=" 90" /></label>
+      <label>SpO2 : <input required type="number" id="morning_spo2" /></label>
     </fieldset>
     <fieldset>
-      <legend>Vitals Morning (8.00 pm)</legend>
-      <label>Temperature : <input type="text" id="evening_temp" step="0.1" min="90" max="110"/></label>
-      <label>BP : <input type="text" id="evening_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80"np /></label>
-      <label>Pulse Rate : <input type="text" id="evening_pr" min="0" max="200" placeholder=" 90"/></label>
-      <label>SpO2 : <input type="text" id="evening_spo2" /></label>
+      <legend>Vitals Evening (8.00 pm)</legend>
+      <label>Temperature : <input type="number" required id="evening_temp" step="0.1" min="90" max="110"/></label>
+      <label>BP : <input required type="text" id="evening_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80"np /></label>
+      <label>Pulse Rate : <input required type="number" id="evening_pr" min="0" max="200" placeholder=" 90"/></label>
+      <label>SpO2 : <input type="number" required id="evening_spo2" /></label>
     </fieldset>
     <fieldset>
       <legend>Capping Details</legend>
-      <label>Start Time : <input type="time" id="capping_start" /></label>
-      <label>PR @ Start Time : <input type="text" id="cap_start_pr" /></label>
-      <label>SpO2 @ Start Time: <input type="text" id="cap_start_spo2" /></label>
-      <label>End Time : <input type="time" id="capping_end" /></label>
-      <label>PR @ End Time : <input type="text" id="cap_end_pr" /></label>
-      <label>SpO2 @ End Time: <input type="text" id="cap_end_spo2" /></label>
+      <label>Start Time : <input type="time" required id="capping_start" /></label>
+      <label>PR @ Start Time : <input type="number" required id="cap_start_pr" min="0" max="200" /></label>
+      <label>SpO2 @ Start Time: <input type="number" required id="cap_start_spo2" /></label>
+      <label>End Time : <input type="time" id="capping_end" required/></label>
+      <label>PR @ End Time : <input type="number" id="cap_end_pr" min="0" max="200"  required/></label>
+      <label>SpO2 @ End Time: <input type="number" id="cap_end_spo2" required/></label>
     </fieldset>
     
     <fieldset>
       <legend>Total Intake/Output Quantity</legend>
-      <label> Input : <input type ="number" id ="inputQty" /></label>
-      <label> Output : <input type ="number" id ="outputQty" /></label>
+      <label> Input : <input type ="number" id ="inputQty" required min="1500" max="3000" /></label>
+      <label> Output : <input type ="number" id ="outputQty" required min="1500" max="3000"/></label>
     </fieldset>
 
     <fieldset>
       <legend>Miscelleanous</legend>
-      <label> Motion Passed : <input type ="number" id ="motionPassed" /></label>
-      <label> Trachea Secretions : <input type ="number" id ="tSecretions" /></label>
-      <label> Oral Suctions : <input type="number" id="oral_suctions"/> </label>
-      <label> RBS : <input type="number" id="rbs"/> </label>
+      <label> Motion Passed : <input type ="number" id ="motionPassed" required min = "0" max = "10"/></label>
+      <label> Trachea Secretions : <input type ="number" id ="tSecretions" required min = "0" max = "10"/></label>
+      <label> Oral Suctions : <input type="number" id="oral_suctions" required min = "0" max = "10"/> </label>
+      <label> RBS : <input type="number" id="rbs" /> </label>
     </fieldset>
 
     <fieldset>
       <legend>Notes</legend>
-      <label> Physio Therapy: <textarea id="physio_notes" rows="4" cols="50"></textarea> </label>
-      <label> Swallow Therapy : <textarea id="swallow_notes" rows="4" cols="50"></textarea> </label>
+      <label> Physio Therapy: <textarea id="physio_notes" required rows="4" cols="50"></textarea> </label>
+      <label> Swallow Therapy : <textarea id="swallow_notes" required rows="4" cols="50"></textarea> </label>
     </fieldset>
 
-    <fieldset>
-      <legend>Medications</legend>
-      <div id="medicationsList"></div>
-      <label> Medicine Name :<input type="text" class="medName" /> </label>
-      <label> Dose :<input type="text" class="medDose" /></label>
-      <label>Time : <input type="text" class="medTime" /></label>
-      <button type="button" onclick="addMedication()">+ Add Medication</button>
-    </fieldset>
+  <!-- Morning Medications -->
+  <fieldset>
+    <legend>🕘 Morning Meds</legend>
+    <label><input type="checkbox" name="meds" value="PanD @6am"> Pan D @ 6am</label><br>
+  </fieldset>
+
+  <!-- Night Medications -->
+  <fieldset>
+    <legend>🌙 Night Meds</legend>
+    <label><input type="checkbox" name="meds" value="Tolperitas SR"> Tolperitas SR</label><br>
+    <label><input type="checkbox" name="meds" value="Storvas"> Storvas</label><br>
+    <label><input type="checkbox" name="meds" value="Prolomet XL"> Prolomet XL</label><br>
+  </fieldset>
+<fieldset>
+  <legend> Medicines BD</legend>
+  <label><input type="checkbox" name="meds" value="Levipil (500/750)"> Levipil (500/750)</label><br>
+  <label><input type="checkbox" name="meds" value="Zincovit"> Zincovit</label><br>
+  <label><input type="checkbox" name="meds" value="Apixaban"> Apixaban</label><br>
+  <label><input type="checkbox" name="meds" value="Syndopa Plus (4 Times)"> Syndopa Plus (4 Times)</label><br>
+  <label><input type="checkbox" name="meds" value="Sacurise"> Sacurise</label><br>
+</fieldset>
+  <!-- Optional Medications -->
+  <fieldset>
+    <legend>🧪 Neb & Optional Meds</legend>
+    <label><input type="checkbox" name="meds" value="Duolin Neb"> Duolin Neb</label><br>
+    <label><input type="checkbox" name="meds" value="Budecort Neb"> Budecort Neb</label><br>
+    <label><input type="checkbox" name="meds" value="Duphlac 15ml"> Duphlac 15ml</label><br>
+    <label><input type="checkbox" name="meds" value="Lactifiber 2 Spoons"> Lactifiber 2 Spoons</label><br>
+  </fieldset>
 
     <div class="buttons">
       <!--<button type="button" id ="saveBtn" onclick="saveVitalsData()">Save</button> -->
