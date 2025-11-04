@@ -228,10 +228,10 @@ function sendWhatsApp() {
   const eveningPR = document.getElementById("evening_pr").value;
   const eveningSpO2 = document.getElementById("evening_spo2").value;
 
-  const capStart = document.getElementById("capping_start").value;
+  const capStart = formatTimeToAMPM(document.getElementById("capping_start").value);
   const capStartPR = document.getElementById("cap_start_pr").value;
   const capStartSpO2 = document.getElementById("cap_start_spo2").value;
-  const capEnd = document.getElementById("capping_end").value;
+  const capEnd = formatTimeToAMPM(document.getElementById("capping_end").value);
   const capEndPR = document.getElementById("cap_end_pr").value;
   const capEndSpO2 = document.getElementById("cap_end_spo2").value;
 
@@ -281,7 +281,7 @@ function sendWhatsApp() {
   if (meds.length > 0) {
     message += `\n *Medications Given:*\n`;
     meds.forEach((med, i) => {
-      message += `${i + 1}. ${med}\n`;
+      message += `${i+1}. ${med}\n`;
     });
     message += `\n`;
   }
@@ -340,3 +340,20 @@ function validatePR(inputField) {
 function validatePRWrapper(event) {
   validatePR(event.target);
 }
+
+function formatTimeToAMPM(timeStr) {
+  if (!timeStr || !timeStr.includes(":")) return "Invalid time";
+
+  const [hourStr, minuteStr] = timeStr.split(":");
+  const hour = parseInt(hourStr, 10);
+  const minute = parseInt(minuteStr, 10);
+
+  if (isNaN(hour) || isNaN(minute)) return "Invalid time";
+
+  const ampm = hour >= 12 ? "PM" : "AM";
+  const formattedHour = hour % 12 || 12;
+  const formattedMinute = minute.toString().padStart(2, "0");
+
+  return `${formattedHour}:${formattedMinute} ${ampm}`;
+}
+
