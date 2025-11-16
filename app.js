@@ -245,6 +245,7 @@ function sendWhatsApp() {
 
   const physioNotes = document.getElementById("physio_notes").value;
   const swallowNotes = document.getElementById("swallow_notes").value;
+  const miscNotes = document.getElementById("misc_notes").value;
 
   // Collect checked medications
   const meds = Array.from(document.querySelectorAll('input[name="meds"]:checked'))
@@ -277,6 +278,7 @@ function sendWhatsApp() {
 
   message += `\n6. Physio Therapy:\n${physioNotes}\n`;
   message += `\n7. Swallow Therapy:\n${swallowNotes}\n`;
+  message += `\n8. Misc Notes :\n${miscNotes}\n`;
 
   if (meds.length > 0) {
     message += `\n *Medications Given:*\n`;
