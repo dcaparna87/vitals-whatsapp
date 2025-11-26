@@ -24,7 +24,13 @@
       <label>Pulse Rate : <input required type="number" id="evening_pr" min="0" max="200" placeholder=" 90"/></label>
       <label>SpO2 : <input type="number" required id="evening_spo2" /></label>
     </fieldset>
-    <fieldset>
+    
+    <label>
+    <input type="checkbox" id="enableCapping">
+    Capping Done
+    </label>
+
+    <fieldset id="cappingFieldset" disabled>
       <legend>Capping Details</legend>
       <label>Start Time : <input type="time" required id="capping_start" /></label>
       <label>PR @ Start Time : <input type="number" required id="cap_start_pr" min="0" max="200" /></label>

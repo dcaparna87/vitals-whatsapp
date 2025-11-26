@@ -228,6 +228,7 @@ function sendWhatsApp() {
   const eveningPR = document.getElementById("evening_pr").value;
   const eveningSpO2 = document.getElementById("evening_spo2").value;
 
+  const capEnabled = document.getElementById("enableCapping").checked;
   const capStart = formatTimeToAMPM(document.getElementById("capping_start").value);
   const capStartPR = document.getElementById("cap_start_pr").value;
   const capStartSpO2 = document.getElementById("cap_start_spo2").value;
@@ -270,8 +271,10 @@ function sendWhatsApp() {
   message += `Evening Vitals (8:00 PM):\n`;
   message += `Temp: ${eveningTemp}°f, \n BP: ${eveningBP} mm Hg, \n PR: ${eveningPR} bpm, \n SpO2: ${eveningSpO2}%\n\n`;
 
+  if (capEnabled){
   message += `Capping Start Time: ${capStart} \n PR: ${capStartPR} bpm, \n SpO2: ${capStartSpO2}%\n\n`;
   message += `Capping End Time : ${capEnd} \n PR: ${capEndPR} bpm, \n SpO2: ${capEndSpO2}%\n\n`;
+  }
 
   message += `*Notes* : \n1. Input: ${inputQty} ml, Output: ${outputQty} ml`;
   message += `\n2. Motion Passed: ${motionPassed}, \n3. Trachea Secretion: ${tSecretions}, \n4. Oral Suction: ${oralSuction}, \n5.RBS: ${rbs}`;
@@ -280,13 +283,19 @@ function sendWhatsApp() {
   message += `\n7. Swallow Therapy:\n${swallowNotes}\n`;
   message += `\n8. Misc Notes :\n${miscNotes}\n`;
 
-  if (meds.length > 0) {
+  /* if (meds.length > 0) {
     message += `\n *Medications Given:*\n`;
     meds.forEach((med, i) => {
       message += `${i+1}. ${med}\n`;
     });
     message += `\n`;
-  }
+  } */
+
+  if (meds.length > 0) {
+  message += `\n *Medications Given:*\n`;
+  message += meds.map((med, i) => `${i+1}. ${med}`).join("\n");
+  message += `\n`;
+}
 
   // Encode and launch WhatsApp
   const encoded = encodeURIComponent(message);
@@ -359,3 +368,16 @@ function formatTimeToAMPM(timeStr) {
   return `${formattedHour}:${formattedMinute} ${ampm}`;
 }
 
+const enableCapping = document.getElementById('enableCapping');
+const cappingFieldset = document.getElementById('cappingFieldset');
+const cappingInputs = cappingFieldset.querySelectorAll('input');
+
+enableCapping.addEventListener('change', function() {
+  if (this.checked) {
+    cappingFieldset.disabled = false;
+    cappingInputs.forEach(input => input.required = true); // make required
+  } else {
+    cappingFieldset.disabled = true;
+    cappingInputs.forEach(input => input.required = false); // remove required
+  }
+});
