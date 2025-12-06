@@ -56,8 +56,8 @@ function sendWhatsApp() {
     message += `Capping End: ${data.capping.end}, PR: ${data.capping.end_pr}, SpO2: ${data.capping.end_spo2}%\n\n`;
   }
 
-  message += `*Notes:*\n*1. Input:* ${data.io.input} ml, *Output:* ${data.io.output} ml\n*2. Motion Passed:* ${data.misc.motionPassed}, Trachea Secretions: ${data.misc.tSecretions}, Oral Suction: ${data.misc.oralSuction}, RBS: ${data.misc.rbs}\n`;
-  message += `*3. Physio:* ${data.notes.physio}\n*4. Swallow:* ${data.notes.swallow}\n*5. Misc:* ${data.notes.misc}\n`;
+  message += `*Notes:*\n*1. Input:* ${data.io.input} ml, *Output:* ${data.io.output} ml\n*2. Motion Passed:* ${data.misc.motionPassed},\n*3. Trachea Secretions:* ${data.misc.tSecretions},\n*4. Oral Suction:* ${data.misc.oralSuction},\n*5. RBS:* ${data.misc.rbs}\n`;
+  message += `*6. Physio:* ${data.notes.physio}\n*7. Swallow:* ${data.notes.swallow}\n*8. Misc:* ${data.notes.misc}\n`;
 
   if (data.medications.length > 0) {
     message += `*Medications:*\n${data.medications.map((m, i) => `${i+1}. ${m}`).join("\n")}\n`;
