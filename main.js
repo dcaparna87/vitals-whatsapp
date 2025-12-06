@@ -48,19 +48,19 @@ function sendWhatsApp() {
   const data = collectVitalsData();
   let message = `_Date: ${data.date}_\n\n`;
 
-  message += `Morning Vitals (8:00 AM):\nTemp: ${data.morning.temp}°f, BP: ${data.morning.bp}, PR: ${data.morning.pr} bpm, SpO2: ${data.morning.spo2}%\n\n`;
-  message += `Evening Vitals (8:00 PM):\nTemp: ${data.evening.temp}°f, BP: ${data.evening.bp}, PR: ${data.evening.pr} bpm, SpO2: ${data.evening.spo2}%\n\n`;
+  message += `*Morning Vitals (8:00 AM):*\nTemp: ${data.morning.temp}°f,\nBP: ${data.morning.bp},\nPR: ${data.morning.pr} bpm,\nSpO2: ${data.morning.spo2}%\n\n`;
+  message += `*Evening Vitals (8:00 PM):*\nTemp: ${data.evening.temp}°f,\nBP: ${data.evening.bp},\nPR: ${data.evening.pr} bpm,\nSpO2: ${data.evening.spo2}%\n\n`;
 
   if (data.cappingEnabled) {
     message += `Capping Start: ${data.capping.start}, PR: ${data.capping.start_pr}, SpO2: ${data.capping.start_spo2}%\n`;
     message += `Capping End: ${data.capping.end}, PR: ${data.capping.end_pr}, SpO2: ${data.capping.end_spo2}%\n\n`;
   }
 
-  message += `Notes:\nInput: ${data.io.input} ml, Output: ${data.io.output} ml\nMotion Passed: ${data.misc.motionPassed}, Trachea Secretions: ${data.misc.tSecretions}, Oral Suction: ${data.misc.oralSuction}, RBS: ${data.misc.rbs}\n`;
-  message += `Physio: ${data.notes.physio}\nSwallow: ${data.notes.swallow}\nMisc: ${data.notes.misc}\n`;
+  message += `*Notes:*\n*1. Input:* ${data.io.input} ml, *Output:* ${data.io.output} ml\n*2. Motion Passed:* ${data.misc.motionPassed}, Trachea Secretions: ${data.misc.tSecretions}, Oral Suction: ${data.misc.oralSuction}, RBS: ${data.misc.rbs}\n`;
+  message += `*3. Physio:* ${data.notes.physio}\n*4. Swallow:* ${data.notes.swallow}\n*5. Misc:* ${data.notes.misc}\n`;
 
   if (data.medications.length > 0) {
-    message += `Medications:\n${data.medications.map((m, i) => `${i+1}. ${m}`).join("\n")}\n`;
+    message += `*Medications:*\n${data.medications.map((m, i) => `${i+1}. ${m}`).join("\n")}\n`;
   }
 
   const phoneNumber = "919176580847"; // Replace with actual number
