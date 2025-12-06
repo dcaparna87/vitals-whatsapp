@@ -1,93 +1,150 @@
+/* =============================
+   Patient Tracker Stylesheet
+   ============================= */
 
-form {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
+:root {
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --gap-lg: 16px;
+  --border: #e0e0e0;
+  --focus: #0078d7;
+  --bg: #fafafa;
+  --card-bg: #fff;
 }
 
+/* Base layout */
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 16px;
+  background: var(--bg);
+}
+
+h2 {
+  margin: 0 0 var(--gap-lg);
+  font-weight: 600;
+}
+
+/* Form container */
+form {
+  display: grid;
+  gap: var(--gap-lg);
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: var(--gap-lg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* Fieldset cards */
 fieldset {
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--gap-md);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-md);
+  background: var(--card-bg);
 }
 
 legend {
-  display: block;
-  margin-bottom: 10px;
+  padding: 0 6px;
   font-weight: 600;
-  margin-top:10px;
 }
 
+/* Row layout for simple pairs */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+/* Two-column layout for inputs inside fieldsets on wider screens */
+@media (min-width: 720px) {
+  fieldset {
+    grid-template-columns: 1fr 1fr;
+  }
+  fieldset legend {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Label + input alignment */
 label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 400;
-  margin-top:10px;
+  font-weight: 600;
 }
 
+/* Stack label and input for text/number/time */
+.input-group {
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+/* Checkbox rows: align box and text */
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Inputs and textareas */
+input,
+textarea,
+select {
+  padding: 8px 10px;
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-color: var(--focus);
+}
 
 textarea {
-  width: 100%;
+  resize: vertical;
+  min-height: 90px;
 }
 
+/* Buttons */
 .buttons {
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+  justify-content: flex-start;
+  padding-top: var(--gap-sm);
 }
 
-input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top:6px;
-      box-sizing: border-box;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-    }
-.row { display:flex; gap:10px; }
-
-.row > div { flex:1; }
-
-.btn-row { display:flex; gap:10px; margin-top:12px; }
-
-button { cursor:pointer; }
-
-.muted { font-size:13px; color:#666; margin-top:6px; }
-
-hr { margin: 18px 0; border: none; border-top: 1px solid #eee; }
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  background-color: #007bff;
-  color: white;
-  padding: 1em;
-  margin: 0;
-}
-
-nav {
-  display: flex;
-  background-color: #f0f0f0;
-  padding: 0.5em;
-}
-
-nav button {
-  flex: 1;
-  padding: 1em;
-  margin: 0 0.5em;
+.buttons button {
+  padding: 10px 14px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #0b5bd3;
+  color: #fff;
   cursor: pointer;
-  background-color: #e0e0e0;
-  border: none;
-  font-weight: bold;
 }
 
-iframe {
-  width: 100%;
-  height: calc(100vh - 140px);
-  border: none;
+.buttons button#exportBtn {
+  background: #1976d2;
+}
+
+.buttons button:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
