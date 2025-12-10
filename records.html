@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vitals Records</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="form.html">Add Record</a>
+    <a href="records.html" class="active">View Records</a>
+  </nav>
+
+  <h2>Vitals Records</h2>
+
+  <p style="margin-top:20px; font-size:0.9em;">
+  To download reports, go to <a href="index.html">Home</a>.
+  </p>
+
+  <!-- Month filter -->
+  <label for="monthSelect">Select Month:</label>
+  <input type="month" id="monthSelect">
+  <button onclick="filterByMonth()">Filter</button>
+  <button onclick="loadRecords()">Show All</button>
+  <button onclick="editRecord()">Edit</button>
+  <button onclick="deleteRecord()">Delete</button>
+
+  <!-- Records Table -->
+  <div class="table-container">
+    <table id="recordsTable">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Date</th>
+          <th>Morning Temp</th>
+          <th>Morning BP</th>
+          <th>Morning PR</th>
+          <th>Morning SpO2</th>
+          <th>Evening Temp</th>
+          <th>Evening BP</th>
+          <th>Evening PR</th>
+          <th>Evening SpO2</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Motion</th>
+          <th>Secretions</th>
+          <th>Oral Suction</th>
+          <th>RBS</th>
+          <th>Physio</th>
+          <th>Swallow</th>
+          <th>Misc Notes</th>
+          <th>Medications</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button onclick="editRecord()">Edit</button>
+    <button onclick="deleteRecord()">Delete</button>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+  <script src="data.js"></script>
+  <script src="records.js"></script>
+</body>
+</html>

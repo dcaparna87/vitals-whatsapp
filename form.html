@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vitals Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="form.html" class="active">Add Record</a>
+    <a href="records.html">View Records</a>
+  </nav>
+
+  <h2>Vitals Form</h2>
+
+  <p style="margin-top:20px; font-size:0.9em;">
+  To download reports, go to <a href="index.html">Home</a>.
+  </p>
+
+  <!-- Common Form -->
+  <form id="trackerForm" novalidate>
+    <!-- Date -->
+    <div class="form-row">
+      <label for="dt">Date:</label>
+      <input type="date" id="dt" required />
+    </div>
+
+    <!-- Morning Vitals -->
+    <fieldset>
+      <legend>Vitals Morning (8.00 am)</legend>
+
+      <div class="input-group">
+        <label for="morning_temp">Temperature</label>
+        <input type="number" id="morning_temp" step="0.1" min="90" max="110" placeholder="98.5" required />
+      </div>
+
+      <div class="input-group">
+        <label for="morning_bp">BP</label>
+        <input type="text" id="morning_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80" required />
+      </div>
+
+      <div class="input-group">
+        <label for="morning_pr">Pulse Rate</label>
+        <input type="number" id="morning_pr" min="0" max="200" placeholder="90" required />
+      </div>
+
+      <div class="input-group">
+        <label for="morning_spo2">SpO2</label>
+        <input type="number" id="morning_spo2" required />
+      </div>
+    </fieldset>
+
+    <!-- Evening Vitals -->
+    <fieldset>
+      <legend>Vitals Evening (8.00 pm)</legend>
+
+      <div class="input-group">
+        <label for="evening_temp">Temperature</label>
+        <input type="number" id="evening_temp" step="0.1" min="90" max="110" required />
+      </div>
+
+      <div class="input-group">
+        <label for="evening_bp">BP</label>
+        <input type="text" id="evening_bp" pattern="\d{2,3}/\d{2,3}" title="Format: 120/80" placeholder="120/80" required />
+      </div>
+
+      <div class="input-group">
+        <label for="evening_pr">Pulse Rate</label>
+        <input type="number" id="evening_pr" min="0" max="200" placeholder="90" required />
+      </div>
+
+      <div class="input-group">
+        <label for="evening_spo2">SpO2</label>
+        <input type="number" id="evening_spo2" required />
+      </div>
+    </fieldset>
+
+    <!-- Capping toggle -->
+    <div class="form-row">
+      <input type="checkbox" id="enableCapping" />
+      <label class="check-row" for="enableCapping">Capping Done</label>
+    </div>
+
+    <!-- Capping details -->
+    <fieldset id="cappingFieldset" disabled>
+      <legend>Capping Details</legend>
+
+      <div class="input-group">
+        <label for="capping_start">Start Time</label>
+        <input type="time" id="capping_start" required />
+      </div>
+
+      <div class="input-group">
+        <label for="cap_start_pr">PR @ Start Time</label>
+        <input type="number" id="cap_start_pr" min="0" max="200" required />
+      </div>
+
+      <div class="input-group">
+        <label for="cap_start_spo2">SpO2 @ Start Time</label>
+        <input type="number" id="cap_start_spo2" required />
+      </div>
+
+      <div class="input-group">
+        <label for="capping_end">End Time</label>
+        <input type="time" id="capping_end" required />
+      </div>
+
+      <div class="input-group">
+        <label for="cap_end_pr">PR @ End Time</label>
+        <input type="number" id="cap_end_pr" min="0" max="200" required />
+      </div>
+
+      <div class="input-group">
+        <label for="cap_end_spo2">SpO2 @ End Time</label>
+        <input type="number" id="cap_end_spo2" required />
+      </div>
+    </fieldset>
+
+    <!-- Intake/Output -->
+    <fieldset>
+      <legend>Total Intake/Output Quantity</legend>
+
+      <div class="input-group">
+        <label for="inputQty">Input</label>
+        <input type="number" id="inputQty" min="1500" max="3000" required />
+      </div>
+
+      <div class="input-group">
+        <label for="outputQty">Output</label>
+        <input type="number" id="outputQty" min="1500" max="3000" required />
+      </div>
+    </fieldset>
+
+    <!-- Misc -->
+    <fieldset>
+      <legend>Miscellaneous</legend>
+
+      <div class="input-group">
+        <label for="motionPassed">Motion Passed</label>
+        <input type="number" id="motionPassed" min="0" max="10" required />
+      </div>
+
+      <div class="input-group">
+        <label for="tSecretions">Trachea Secretions</label>
+        <input type="number" id="tSecretions" min="0" max="10" required />
+      </div>
+
+      <div class="input-group">
+        <label for="oral_suctions">Oral Suctions</label>
+        <input type="number" id="oral_suctions" min="0" max="10" required />
+      </div>
+
+      <div class="input-group">
+        <label for="rbs">RBS</label>
+        <input type="number" id="rbs" />
+      </div>
+    </fieldset>
+
+    <!-- Notes -->
+    <fieldset>
+      <legend>Notes</legend>
+
+      <div class="input-group full-width">
+        <label for="physio_notes">Physio Therapy</label>
+        <textarea id="physio_notes" rows="4" required></textarea>
+      </div>
+
+      <div class="input-group full-width">
+        <label for="swallow_notes">Swallow Therapy</label>
+        <textarea id="swallow_notes" rows="4" required></textarea>
+      </div>
+
+      <div class="input-group full-width">
+        <label for="misc_notes">Misc</label>
+        <textarea id="misc_notes" rows="4" required></textarea>
+      </div>
+    </fieldset>
+
+    <!-- Medications -->
+    <fieldset>
+      <legend>🕘 Morning Meds</legend>
+      <label class="check-row" for="med_panD">
+        <input type="checkbox" name="meds" value="PanD @6am" id="med_panD" />
+        Pan D @ 6am
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>🌙 Night Meds</legend>
+      <label class="check-row" for="med_tolperitas">
+        <input type="checkbox" name="meds" value="Tolperitas SR" id="med_tolperitas" />
+        Tolperitas SR
+      </label>
+      <label class="check-row" for="med_storvas">
+        <input type="checkbox" name="meds" value="Storvas" id="med_storvas" />
+        Storvas
+      </label>
+      <label class="check-row" for="med_prolomet">
+        <input type="checkbox" name="meds" value="Prolomet XL" id="med_prolomet" />
+        Prolomet XL
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Medicines BD</legend>
+      <label class="check-row" for="med_levipil">
+        <input type="checkbox" name="meds" value="Levipil (500)" id="med_levipil" />
+        Levipil (500)
+      </label>
+      <label class="check-row" for="med_zincovit">
+        <input type="checkbox" name="meds" value="Zincovit" id="med_zincovit" />
+        Zincovit
+      </label>
+      <label class="check-row" for="med_apixaban">
+        <input type="checkbox" name="meds" value="Apixaban" id="med_apixaban" />
+        Apixaban
+      </label>
+      <label class="check-row" for="med_syndopa">
+        <input type="checkbox" name="meds" value="Syndopa Plus (4 Times)" id="med_syndopa" />
+        Syndopa Plus (4 Times)
+      </label>
+      <label class="check-row" for="med_sacurise">
+        <input type="checkbox" name="meds" value="Sacurise" id="med_sacurise" />
+        Sacurise
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>🧪 Neb & Optional Meds</legend>
+      <label class="check-row" for="med_duolin">
+        <input type="checkbox" name="meds" value="Duolin Neb" id="med_duolin" />
+        Duolin Neb
+      </label>
+      <label class="check-row" for="med_budecort">
+        <input type="checkbox" name="meds" value="Budecort Neb" id="med_budecort" />
+        Budecort Neb
+      </label>
+      <label class="check-row" for="med_duphlac">
+        <input type="checkbox" name="meds" value="Duphlac 15ml" id="med_duphlac" />
+        Duphlac 15ml
+      </label>
+      <label class="check-row" for="med_lactifiber">
+        <input type="checkbox" name="meds" value="Lactifiber 2 Spoons" id="med_lactifiber" />
+        Lactifiber 2 Spoons
+      </label>
+    </fieldset>
+
+    <!-- Action Buttons -->
+    <div class="buttons">
+      <button type="button" id="saveAndSendBtn" onclick="saveRecord()">Save & Send</button>
+    </div>
+  </form>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+  <script src="data.js"></script>
+  <script src="form.js"></script>
+</body>
+</html>
