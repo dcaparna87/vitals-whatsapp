@@ -19,11 +19,39 @@ body {
   margin: 0;
   padding: 16px;
   background: var(--bg);
+  color: #333;
 }
 
 h2 {
   margin: 0 0 var(--gap-lg);
   font-weight: 600;
+  text-align: center;
+  color: #007bff;
+}
+
+/* Navigation bar */
+nav {
+  background: #f2f2f2;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #007bff;
+}
+
+nav a.active {
+  color: #007bff;
+  text-decoration: underline;
 }
 
 /* Form container */
@@ -82,7 +110,7 @@ label {
   gap: var(--gap-sm);
 }
 
-/* Checkbox rows: align box and text */
+/* Checkbox rows */
 .check-row {
   display: flex;
   align-items: center;
@@ -106,6 +134,8 @@ select {
   border: 1px solid var(--border);
   border-radius: 6px;
   background: #fff;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus,
@@ -149,31 +179,17 @@ textarea {
   outline-offset: 2px;
 }
 
-body { font-family: Arial, sans-serif; margin: 20px; }
-    nav {
-      background: #f2f2f2;
-      padding: 10px;
-      margin-bottom: 20px;
-    }
-    nav a {
-      margin-right: 15px;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-    nav a:hover {
-      color: #007bff;
-    }
-
-    .table-container {
-  max-height: 400px;   /* vertical scroll limit */
-  overflow-x: auto;    /* horizontal scroll */
-  overflow-y: auto;    /* vertical scroll */
+/* Table container */
+.table-container {
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
   border: 1px solid #ccc;
 }
 
 #recordsTable {
-  width: 1500px;       /* force wide table so scroll bar appears */
+  width: 100%;
+  min-width: 900px; /* allow scroll on smaller screens */
   border-collapse: collapse;
 }
 
@@ -181,16 +197,17 @@ body { font-family: Arial, sans-serif; margin: 20px; }
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
-  white-space: nowrap; /* prevent wrapping so columns stay neat */
+  white-space: nowrap;
 }
 
 #recordsTable th {
   background: #f2f2f2;
-  position: sticky;    /* keep headers visible when scrolling vertically */
+  position: sticky;
   top: 0;
   z-index: 2;
 }
 
+/* Edit form */
 #editForm {
   border: 1px solid #ccc;
   padding: 20px;
@@ -210,18 +227,13 @@ body { font-family: Arial, sans-serif; margin: 20px; }
 }
 
 #editForm input {
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   padding: 5px;
   margin-top: 5px;
 }
 
-/* Highlight active nav link */
-nav a.active {
-  color: #007bff;
-  text-decoration: underline;
-}
-
-/* Overlay background */
+/* Popup overlay */
 #popupOverlay {
   position: fixed;
   top: 0; left: 0;
@@ -243,7 +255,8 @@ nav a.active {
   z-index: 1000;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  width: 400px;
+  width: 90%;
+  max-width: 400px;
 }
 
 /* Popup header */
@@ -257,6 +270,7 @@ nav a.active {
 #downloadPopupHeader h3 {
   margin: 0;
   font-size: 1.2em;
+  color: #007bff;
 }
 
 #closePopupBtn {
@@ -265,4 +279,38 @@ nav a.active {
   font-weight: bold;
   border: none;
   background: none;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  nav a {
+    margin: 5px 0;
+  }
+
+  form {
+    padding: 12px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .buttons button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #recordsTable {
+    min-width: 600px;
+  }
 }
