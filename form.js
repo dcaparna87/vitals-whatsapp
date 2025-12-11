@@ -156,9 +156,12 @@ function saveRecord() {
 document.addEventListener('DOMContentLoaded', () => {
   setupCappingToggle();
   const docId = getParam('id');
+  const saveBtn = document.getElementById("saveAndSendBtn");
+
   if (docId) {
     db.collection('vitals').doc(docId).get().then(doc => {
       if (doc.exists) {
+        saveBtn.textContent = "Save";
         fillForm(doc.data());
       } else {
         alert('Record not found.');
@@ -166,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else {
     // New mode: ensure date is editable
+    saveBtn.textContent = "Save & Send";
     const dt = document.getElementById('dt');
     if (dt) dt.readOnly = false;
   }
