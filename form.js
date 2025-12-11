@@ -146,7 +146,7 @@ function saveRecord() {
       .then(() => {
         alert('Record saved successfully.');
         sendWhatsApp();   // ✅ send message after new save
-        // window.location.href = 'records.html';
+        window.location.href = 'index.html';   // ✅ go back to Home
       })
       .catch(err => console.error('Error saving:', err));
   }
