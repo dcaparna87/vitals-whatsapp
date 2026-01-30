@@ -34,6 +34,12 @@ function buildRows(snapshot) {
       d.evening?.bp || "",
       d.evening?.pr || "",
       d.evening?.spo2 || "",
+      d.capping.start || "",
+      d.capping.start_pr || "",
+      d.capping.start_spo2 || "",
+      d.capping.end || "",
+      d.capping.end_pr || "",
+      d.capping.end_spo2 || "",
       d.io?.input || "",
       d.io?.output || "",
       d.misc?.motionPassed || "",
@@ -92,6 +98,8 @@ async function downloadMonthlyExcel() {
   worksheet.addRow([
     "Date","MorningTemp","MorningBP","MorningPR","MorningSpO2",
     "EveningTemp","EveningBP","EveningPR","EveningSpO2",
+    "Capping Start Time", "PR @ Start Time", "SpO2 @ Start Time",
+    "Capping End Time", "PR @ End Time", "SpO2 @ End Time",
     "Input","Output","Motion","Secretions","OralSuction","RBS",
     "Physio","Swallow","MiscNotes","Medications"
   ]);
@@ -133,7 +141,9 @@ async function downloadAllExcel() {
   // Header row
   worksheet.addRow([
     "Date","MorningTemp","MorningBP","MorningPR","MorningSpO2",
-    "EveningTemp","EveningBP","EveningPR","EveningSpO2",
+    "EveningTemp","EveningBP","EveningPR","EveningSpO2", 
+    "Capping Start Time", "PR @ Start Time", "SpO2 @ Start Time",
+    "Capping End Time", "PR @ End Time", "SpO2 @ End Time",
     "Input","Output","Motion","Secretions","OralSuction","RBS",
     "Physio","Swallow","MiscNotes","Medications"
   ]);
