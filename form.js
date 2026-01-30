@@ -183,9 +183,9 @@ function sendWhatsApp() {
   message += `*Morning Vitals (8:00 AM):*\nTemp: ${data.morning.temp}°f,\nBP: ${data.morning.bp},\nPR: ${data.morning.pr} bpm,\nSpO2: ${data.morning.spo2}%\n\n`;
   message += `*Evening Vitals (8:00 PM):*\nTemp: ${data.evening.temp}°f,\nBP: ${data.evening.bp},\nPR: ${data.evening.pr} bpm,\nSpO2: ${data.evening.spo2}%\n\n`;
 
-  if (data.cappingEnabled) {
-    message += `Capping Start: ${data.capping.start}, PR: ${data.capping.start_pr}, SpO2: ${data.capping.start_spo2}%\n`;
-    message += `Capping End: ${data.capping.end}, PR: ${data.capping.end_pr}, SpO2: ${data.capping.end_spo2}%\n\n`;
+  if (data.capping.enabled) {
+    message += `*Capping Details* \n Start Time: ${data.capping.start}, PR: ${data.capping.start_pr}, SpO2: ${data.capping.start_spo2}%\n`;
+    message += `\n End Time: ${data.capping.end}, PR: ${data.capping.end_pr}, SpO2: ${data.capping.end_spo2}%\n\n`;
   }
 
   message += `*Notes:*\n*1. Input:* ${data.io.input} ml, *Output:* ${data.io.output} ml\n*2. Motion Passed:* ${data.misc.motionPassed},\n*3. Trachea Secretions:* ${data.misc.tSecretions},\n*4. Oral Suction:* ${data.misc.oralSuction},\n*5. RBS:* ${data.misc.rbs}\n`;

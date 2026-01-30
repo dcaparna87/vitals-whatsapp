@@ -18,6 +18,12 @@ function loadRecords() {
         <td>${data.evening?.bp || ''}</td>
         <td>${data.evening?.pr || ''}</td>
         <td>${data.evening?.spo2 || ''}</td>
+        <td>${data.capping?.start || ''}</td>
+        <td>${data.capping?.start_pr || ''}</td>
+        <td>${data.capping?.start_spo2 || ''}</td>
+        <td>${data.capping?.end || ''}</td>
+        <td>${data.capping?.end_pr || ''}</td>
+        <td>${data.capping?.end_spo2 || ''}</td>
         <td>${data.io?.input || ''}</td>
         <td>${data.io?.output || ''}</td>
         <td>${data.misc?.motionPassed || ''}</td>
@@ -68,6 +74,12 @@ function filterByMonth() {
           <td>${data.evening?.bp || ''}</td>
           <td>${data.evening?.pr || ''}</td>
           <td>${data.evening?.spo2 || ''}</td>
+          <td>${data.capping?.start || ''}</td>
+          <td>${data.capping?.start_pr || ''}</td>
+          <td>${data.capping?.start_spo2 || ''}</td>
+          <td>${data.capping?.end || ''}</td>
+          <td>${data.capping?.end_pr || ''}</td>
+          <td>${data.capping?.end_spo2 || ''}</td>
           <td>${data.io?.input || ''}</td>
           <td>${data.io?.output || ''}</td>
           <td>${data.misc?.motionPassed || ''}</td>
